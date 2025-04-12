@@ -1,13 +1,287 @@
-body {
+:root {
+  --dynamic-color: rgb(255, 0, 0); /* Initial color */
+  --dynamic-color: rgba(255, 0, 0, 0.08);
+}
+body{
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+#root{
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+header{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  position: fixed;
+  top: 0;
+  align-items: center;
+  height: 8vh;
+  width: 100%;
+  background-color: black;
+  color: aliceblue;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+}
+.h1{
+  display: flex;
+  align-items: flex-end;
+  height: 8vh;
+  gap: 2vh;
+  padding-left: 2vh;
+}
+.hicon{
+  height: 7vh;
+  width: 7vh;
+}
+.htext{
+  font-family: 'Major Mono Display', monospace;
+  font-size: 0.8em;
+}
+.slogan{
+  display: flex;
+  height: 8vh;
+  align-items: flex-end;
+  padding-bottom: 1vh;
+  padding-right: 3vh;
+}
+.slogantext{
+  font-family: 'Dancing Script', cursive; /* Cursive font for a handwritten feel */
+  font-weight: 400; /* Regular weight to maintain elegance */
+  color: #ffffffb2; /* Dark color for readability */
+
+  font-size: 1.5em;
+  letter-spacing: 0.5px; /* Slight spacing between letters */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+#yt-player{
+  display: none;
+}
+.app{
+  margin-top: 10vh;
+  display: flex;
+  box-sizing: 0;
+}
+.sec1{
+  padding-left: 10vh;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+
+}
+.sh{
+  font-size: 3em;
+}
+.si{
+  font-size: 1.5em;
+}
+.sii{
+  height: 4vh;
+  padding-left: 2vh;
+  border-radius: 5px;
+}
+.sec11{
+  background-color: rgba(240, 248, 255, 0.355);
+  border-radius: 20px;
+  display: flex;
+  width: max-content;
+  flex-direction: column;
+  gap: 1vh;
+}
+.sec11:hover{
+  background-color: rgba(240, 248, 255, 0.579);
+}
+.sec12{
+  background-color: rgba(205, 219, 131, 0.355);
+  border-radius: 20px;
+  gap: 1vh;
+  display: flex;
+  width: max-content;
+  flex-direction: column;
+}
+.sec120{
+  display: flex;
+  width: 100%;
+  gap: 3vh;
+  
+}
+.sec2{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.sec2div{
+  margin-top: 5vh;
+  background: linear-gradient(to bottom,rgb(105, 105, 105),rgb(18, 18, 18)); 
+  color: aliceblue;
+  border-radius: 20px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 100;
+}
+.s2d0{
+  display: flex;
+  width: 100%;
+  min-height: 20vh;
+  padding: 4vh;
+  padding-top: 3vh;
+
+}
+.s2d0t{
+  font-size: 1.5em;
+}
+.s2d1{
+  /* background-color: antiquewhite; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.067);
+  border-radius: 40px;
+  width: 40vh;
+  height: 40vh;
+}
+.s2d2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  height: 10vh;
+  width: 80%;
+  margin-top: 3vh;
+  margin-bottom: 5vh;
+  border-radius: 20px;
+  background-color:var(--dynamic-color-1);
+  transition: all 0.5s linear;
+  
+}
+.s2d2btn{
+  height: 40px ;
+  width: 40px;
+}
+.s2d2btn:hover{
+  color: rgba(175, 212, 231, 0.523);
+}
+
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 var(--dynamic-color);
+  }
+  100% {
+    box-shadow: 0 0 50px 100px var(--dynamic-color);
+    opacity: 10%;
+     /* added blur */
+  }
+  /* 70% {
+    box-shadow: 0 0 100px 200px rgba(249, 27, 79, 0.15);
+  }
+  100% {
+    box-shadow: 0 0 150px 300px rgba(249, 27, 79, 0.02);
+  } */
+}
+
+
+.playbtn{
+  color: rgb(169, 169, 169);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.14);
+  border: none;
+  outline: none;
+  transition: 0.3s ease;
+}
+.playbtn:hover{
+  scale: 1.3;
+}
+.playing-effect {
+  animation: ripple 1s infinite;
+}
+
+.playicon{
+  height: 60px;
+  width: 60px;
+}
+
+
+@media only screen and (max-width: 768px) {
+  /* Your styles for mobile go here */
+  .app{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  header{
+    flex-direction: column;
+    align-items: baseline;
+  }
+  .hicon{
+    height: 5vh;
+    width: 5vh;
+  }
+  .slogan{
+    display: none;
+  }
+  .sec2{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+  }
+  .sec2div{
+    margin-top:5%;
+    background-color: black;
+    color: aliceblue;
+    border-radius: 10px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .s2d1{
+    /* background-color: antiquewhite; */
+    
+    background-color: rgba(255, 255, 255, 0.229);
+    border-radius: 40px;
+    width: 25vh;
+    height: 25vh;
+  }
+  .s2d0{
+    display: flex;
+    width: 100%;
+    padding: 2vh;
+    min-height: max-content;
+  }
+  .s2d2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* gap: 5%; */
+    height: 7vh;
+    width: 90%;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+    border-radius: 20px;
+  }
+  .s2d2btn{
+    height: 25px !important;
+    width: 25px !important;
+  }
+  .playbtn {
+    color: rgb(169, 169, 169);
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.14);
+    border: none;
+    outline: none;
+    transition: 0.3s ease;
+  }
+  
+  
+  .playicon{
+    height: 40px;
+    width: 40px;
+  }
+  
+  
 }

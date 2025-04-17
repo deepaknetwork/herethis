@@ -4,11 +4,13 @@ import axios from 'axios';
 import { languagesOfState, rainyCodes } from './data/data';
 import { GetListByKeyword } from 'youtube-search-api';
 function App() {
-  var [lat, setLat] = useState(11.116656);
-  var [lon, setLon] = useState(76.931358);
-  var [ln, setLn] = useState();
-  var [cl, setCl] = useState();
-  var [now, setNow] = useState();
+  
+  var lat=useRef();
+  var lon=useRef();
+  var ln=useRef();
+  var cl=useRef();
+  var now=useRef();
+  var [change,setChange]=useState(1);
   const [title, setTitle] = useState();
   const [videoId, setVideoId] = useState(null);
   const playerRef = useRef(null);
@@ -17,35 +19,56 @@ function App() {
   const [fetched, setFetched] = useState(false);
   var songlist = useRef()
   var ind = useRef(1);
-  var [ops, setOps] = useState(`Featured`)
+  var [ops, setOps] = useState("Featured")
   var input1 = useRef()
+  var [loading, setLoading] = useState(false);
+  var[location, setLocation] = useState(false)
   const colors = [
-    "lightgray",     // lighter version of black
-    "#d3d3d3",       // lighter gray (even lighter than gray)
-    "#6a8acd",       // lightened darkblue
-    "#e07b7b",       // lightened darkred
-    "lightgreen",    // already a light version
+    "lightgray",    
+    "#d3d3d3",      
+    "#6a8acd",    
+    "#e07b7b",       
+    "lightgreen",   
   ];
   const colors1 = [
-    "rgba(0, 0, 0, 0.08)",      // black with opacity 0.08
-    "rgba(169, 169, 169, 0.08)", // gray with opacity 0.08
-    "rgba(0, 0, 139, 0.08)",    // darkblue with opacity 0.08
-    "rgba(255, 0, 0, 0.08)",    // rgba red with opacity 0.08
-    "rgba(0, 128, 0, 0.08)",    // darkgreen with opacity 0.08
+    "rgba(0, 0, 0, 0.08)",     
+    "rgba(169, 169, 169, 0.08)", 
+    "rgba(0, 0, 139, 0.08)",   
+    "rgba(255, 0, 0, 0.08)",   
+    "rgba(0, 128, 0, 0.08)",   
   ];
   const [currentColor, setCurrentColor] = useState(0);
-
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          lat.current=position.coords.latitude
+          lon.current=position.coords.longitude
+          findLn(lat.current, lon.current);
+          findwe(lat.current, lon.current);
+          findTi();
+        },
+        (err) => {
+          setError("Location access denied or unavailable.");
+        }
+      );
+      
+    } else {
+      setError("Geolocation not supported by this browser.");
+    }
+  }, []);
   useEffect(() => {
     if(isPlaying){
     const interval = setInterval(() => {
       setCurrentColor((prevColor) => (prevColor + 1) % colors.length);
-    }, 2000); // Change color every 3 seconds (3000 ms)
+    }, 2000); 
 
     return () => clearInterval(interval);
-   } // Cleanup the interval on component unmount
+   } 
   }, [isPlaying]);
 
-  // Update the CSS variable dynamically
   useEffect(() => {
     document.documentElement.style.setProperty('--dynamic-color', colors[currentColor]);
     document.documentElement.style.setProperty('--dynamic-color-1', colors1[currentColor]);
@@ -54,7 +77,8 @@ function App() {
   const findLn = async (tlat, tlon) => {
     await axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${tlat}&lon=${tlon}&format=json`)
       .then(res => {
-        setLn(languagesOfState.find(item => item.state.toLowerCase() === res.data.address.state.toLowerCase()).language);
+        ln.current=languagesOfState.find(item => item.state.toLowerCase() === res.data.address.state.toLowerCase()).language;
+        setChange(2);
       })
       .catch(err => {
         console.log(err);
@@ -65,21 +89,23 @@ function App() {
     await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${tlat}&longitude=${tlon}&current_weather=true`)
       .then(res => {
         if (rainyCodes.includes(res.data.current_weather.weathercode)) {
-          setCl("Rainy");
-        } else if (res.data.current_weather.temperature >= 32) setCl("Hot");
-        else if (res.data.current_weather.temperature >= 22) setCl("Normal");
-        else setCl("Chill");
+          cl.current="Rainy";
+        } else if (res.data.current_weather.temperature >= 32) cl.current="Hot";
+        else if (res.data.current_weather.temperature >= 22) cl.current="Normal";
+        else cl.current="Chill";
+        setChange(3);
       })
       .catch(err => console.log(err));
   };
 
   const findTi = () => {
-    const now = new Date();
-    const hour = now.getHours();
-    if (hour >= 5 && hour < 12) setNow("Morning");
-    else if (hour >= 12 && hour < 17) setNow("Afternoon");
-    else if (hour >= 17 && hour < 20) setNow("Evening");
-    else setNow("Night");
+    const noww = new Date();
+    const hour = noww.getHours();
+    if (hour >= 5 && hour < 12) now.current="Morning";
+    else if (hour >= 12 && hour < 17) now.current="Afternoon";
+    else if (hour >= 17 && hour < 20) now.current="Evening";
+    else now.current="Night";
+    setChange(4);
   };
   function nextSong() {
     console.log(ind)
@@ -89,7 +115,6 @@ function App() {
   }
   function skip1() {
     if (ytPlayer.current) {
-
       const currentTime = ytPlayer.current.getCurrentTime();
       ytPlayer.current.seekTo(currentTime + 60, true);
     }
@@ -102,7 +127,6 @@ function App() {
   }
   function back1() {
     if (ytPlayer.current) {
-
       const currentTime = ytPlayer.current.getCurrentTime();
       ytPlayer.current.seekTo(currentTime - 60, true);
     }
@@ -114,31 +138,20 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    findLn(lat, lon);
-    findwe(lat, lon);
-    findTi();
-  }, []);
 
   useEffect(() => {
-    if (ln && cl && now && !fetched) {
-
-      // axios.get(`http://localhost:5000/song?q=${ln} songs ${now}`)
-      //   .then(res => {
-      //     songlist.current=res.data.videoId
-      //     console.log(res.data.videoId)
-      //     setOps(`Featured : ${ln} song for ${now} vibe`)
-      //     setVideoId(res.data.videoId[0].videoId);
-      //     setTitle(res.data.videoId[0].title);
-      //     setFetched(true);
-      //   });
-
-      setVideoId("0nAvxmluHIM");
-      setTitle("sparow");
-      setOps(`Featured : ${ln} song for ${now} vibe`)
-      setFetched(true);
+    if (ln.current && cl.current && now.current && !fetched) {
+      axios.get(`https://herethisexpress.yellowrock-ae9aa95a.southindia.azurecontainerapps.io/song?q=${ln.current} songs ${now.current} ${cl.current=="Rainy"?"with rain":""}`)
+        .then(res => {
+          songlist.current=res.data.videoId
+          console.log(res.data.videoId)
+          setOps(`Featured`)
+          setVideoId(res.data.videoId[0].videoId);
+          setTitle(res.data.videoId[0].title);
+          setFetched(true);
+        });
     }
-  }, [ln, cl, now, fetched]);
+  }, [ln.current, cl.current, now.current, fetched,change]);
 
   useEffect(() => {
     const loadYouTubeAPI = () => {
@@ -148,14 +161,13 @@ function App() {
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     };
 
-    // Only load the script once
     if (!window.YT) {
       loadYouTubeAPI();
       window.onYouTubeIframeAPIReady = () => {
         ytPlayer.current = new window.YT.Player('yt-player', {
           videoId,
           playerVars: {
-            autoplay: 0,
+            autoplay: 1,
             mute: 0,
             controls: 0,
             modestbranding: 1,
@@ -171,11 +183,9 @@ function App() {
         });
       };
     } else {
-      // Player already exists? Just load new video
       if (ytPlayer.current && ytPlayer.current.loadVideoById) {
         ytPlayer.current.loadVideoById(videoId);
       } else {
-        // Player not initialized yet? Create it
         ytPlayer.current = new window.YT.Player('yt-player', {
           videoId,
           playerVars: {
@@ -214,22 +224,23 @@ function App() {
   };
 
   async function findSong() {
+    setLoading(true)
     console.log(input1.current)
-    await axios.get(`http://localhost:5000/song/find?q=${input1.current} song`)
+    await axios.get(`https://herethisexpress.yellowrock-ae9aa95a.southindia.azurecontainerapps.io/song/find?q=${input1.current} song`)
       .then(res => {
-        // songlist.current=res.data.videoId
-        // console.log(res.data.videoId)
         setVideoId(res.data.videoId);
         setTitle(res.data.title);
         setOps(res.data.title)
         setFetched(true);
         setIsPlaying(true)
+        setLoading(false)
       });
   }
   function playfeatured() {
     if (ops != "Featured") {
       setVideoId(songlist.current[ind.current].videoId)
       setTitle(songlist.current[ind.current].title)
+
       setOps("Featured")
     }
   }
@@ -245,28 +256,36 @@ function App() {
     </header>
 
       <div className='row app'>
-        {videoId && (<div className='col-xl-6 col-sm-12 sec1'>
-          <div className='sec11' onClick={playfeatured}>
-            <span className='sh'>Featured</span>
-            <span className='si'>Language : {ln}</span>
-            <span className='si'>Climate : {cl}</span>
-            <span className='si'>Day Time : {now}</span>
+        {videoId && (
+        <div className='col-xl-6 col-sm-12 sec1'>
+          <div className='sec11' >
+            <div className='sec1h'><span className='sh'>Featured</span>{ops!=="Featured"&&<button className='feplay' onClick={playfeatured}>play</button>}</div>
+            <div className='sec1b'>
+              <span className='si'>Language : {ln.current}</span>
+              <span className='si'>Climate : {cl.current}</span>
+              <span className='si'>Day Time : {now.current}</span>
+            </div>
+            
           </div>
           <div className='sec12'>
-            <span className='sh'>Find the song</span>
+          <div className='sec1h'><span className='sh'>Find the song</span></div>
+          <div className='sec1b1'>
             <div className='sec120'>
               <input className='sii' placeholder='enter the name of song' onChange={(x) => {
                 input1.current = x.target.value
               }} />
-              <svg onClick={findSong} xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              {!loading && <svg onClick={findSong} xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-search sbtn" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-              </svg>
+              </svg>}
             </div>
+            </div>
+            <div className='sbot'>
+        <span className='sbott'>A product by <a href='https://mrdeepak.tech/'>DEEPAK</a></span>
+      </div>
           </div>
 
         </div>)}
         <div className='col-xl-6 col-sm-12 sec2 '>
-
           {videoId ? (
             <div className='sec2div'>
               <div className='s2d0'>
@@ -304,12 +323,19 @@ function App() {
               </div>
             </div>
           ) : (
-            <p>Loading song...</p>
+            <p>{error?error:"Loading song..."}</p>
           )}
         </div>
-
-
+        
       </div>
+      <div className='footer'>
+      <div className='bot'>
+        <span className='bott'>A product by <a href='https://mrdeepak.tech/'>Deepak</a></span>
+      </div>
+      <div className='dlogan'>
+        <span className='dlogantext'>Bringing Music, Language, and Time Together</span>
+        </div>
+        </div>
     </>
   );
 }

@@ -1,3 +1,27 @@
+# 🎵 HereThis
+
+Welcome to **HereThis**! 🌍🎶 Your personalized music player that curates tunes based on your location and climate. Using the YouTube API, HereThis plays songs that are popular among users in your area and matches the climate tags. 🌦️🎧
+
+## Features ✨
+
+- **Location-Based Music** 📍🎵: Plays music popular in your current location.
+- **Climate-Based Music** 🌤️🎶: Adjusts music selection based on the current weather.
+- **YouTube Integration** 📺🎤: Uses YouTube API to fetch and play songs.
+- **User Preferences** 👥❤️: Takes into account the songs most played by users in the area.
+
+## Tech Stack 🛠️
+
+- **Frontend**: React ⚛️
+- **Backend**: Express 🚀
+- **API**: YouTube API 🎥
+
+## Contributing 🤝
+
+We welcome contributions! Please fork the repository and submit pull requests.
+
+Enjoy the music tailored to your location and climate with **HereThis**! 🎶🌍
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

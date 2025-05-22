@@ -413,7 +413,10 @@ function App() {
         </div>
       </header>
 
-      <div className="row app">
+      {/* main div w/ left & right block */}
+      <div className="app">
+        {/*left block starts*/}
+        {/* <div className="left-block"> */}
         {(videoId || error !== "") && (
           <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 sec1">
             <div className="featured-section">
@@ -555,7 +558,10 @@ function App() {
             </div>
           </div>
         )}
+      {/* </div> */}
+      {/*left block ends here */}
 
+        {/* right panel play area */}
         <div className="col-xl-6 col-sm-12 sec2">
           {videoId ? (
             <div className="sec2div">
@@ -628,6 +634,7 @@ function App() {
           )}
         </div>
       </div>
+      {/* right panel ends */}
 
       <div className="footer">
         {/* <span>

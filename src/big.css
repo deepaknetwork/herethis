@@ -11,9 +11,6 @@
   --cat-btn-a-bg: rgb(255, 255, 255);
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 .get-button:hover {
   background-color: #0056b3; /* Darker blue on hover */

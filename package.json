@@ -16,6 +16,7 @@
     "youtube-search-api": "^1.2.2"
   },
   "scripts": {
+    "dev": "npm start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

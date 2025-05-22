@@ -1,33 +1,35 @@
 :root {
   --dynamic-color: rgb(255, 0, 0); /* Initial color */
   --dynamic-color-1: rgba(255, 0, 0, 0.08);
-  --color1 : rgb(189, 255, 122);
-  --color2:rgb(105, 138, 73);
-  --cat-btn-txt:white;
-  --cat-btn-bg:rgb(0, 0, 0);
-  --cat-btn-h-txt:rgb(0, 0, 0);
-  --cat-btn-h-bg:rgb(91, 91, 91);
-  --cat-btn-a-txt:rgb(0, 0, 0);
-  --cat-btn-a-bg:rgb(255, 255, 255);
+  --color1: rgb(189, 255, 122);
+  --color2: rgb(105, 138, 73);
+  --cat-btn-txt: white;
+  --cat-btn-bg: rgb(0, 0, 0);
+  --cat-btn-h-txt: rgb(0, 0, 0);
+  --cat-btn-h-bg: rgb(91, 91, 91);
+  --cat-btn-a-txt: rgb(0, 0, 0);
+  --cat-btn-a-bg: rgb(255, 255, 255);
 }
 
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .get-button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
-body{
+body {
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
 }
 
-#root{
+#root {
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
 }
-header{
+header {
   margin: 0;
   position: fixed;
   top: 0;
@@ -39,58 +41,57 @@ header{
   display: flex;
   justify-content: space-between;
 }
-.bot{
+.bot {
   display: none;
 }
-.sbot{
+.sbot {
   display: flex;
   justify-content: center;
   /* margin-top: 10vh; */
 }
-.sbott{
-  font-family: 'Sora', sans-serif;
+.sbott {
+  font-family: "Sora", sans-serif;
   font-size: 1.5em;
   font-weight: 600;
 }
-.h1{
+.h1 {
   display: flex;
   align-items: flex-end;
   height: 8vh;
   gap: 2vh;
   padding-left: 2vh;
 }
-.hicon{
+.hicon {
   height: 7vh;
   width: 7vh;
 }
-.htext{
-  font-family: 'Major Mono Display', monospace;
+.htext {
+  font-family: "Major Mono Display", monospace;
   font-size: 0.8em;
 }
-.slogan{
+.slogan {
   display: flex;
   height: 8vh;
   align-items: flex-end;
   padding-bottom: 1vh;
   padding-right: 3vh;
 }
-.slogantext{
-  font-family: 'Dancing Script', cursive; /* Cursive font for a handwritten feel */
+.slogantext {
+  font-family: "Dancing Script", cursive; /* Cursive font for a handwritten feel */
   font-weight: 400; /* Regular weight to maintain elegance */
   color: #ffffffb2; /* Dark color for readability */
 
   font-size: 1.5em;
   letter-spacing: 0.5px; /* Slight spacing between letters */
 }
-.dlogan{
+.dlogan {
   display: none;
 }
 
-
-#yt-player{
+#yt-player {
   display: none;
 }
-.app{
+.app {
   margin: 0;
   border: 0;
   padding: 0;
@@ -104,7 +105,7 @@ header{
   border: 0;
   margin: 0;
   padding-left: 7vh;
-  padding-top:5vh;
+  padding-top: 5vh;
   background-color: #000000;
   color: #fff;
   flex-direction: column;
@@ -114,13 +115,13 @@ header{
 }
 
 .sec1::-webkit-scrollbar {
-  width: 6px; 
+  width: 6px;
   background-color: black; /* Background of the scrollbar track */
 }
 
 .sec1::-webkit-scrollbar-thumb {
   background-color: rgb(158, 158, 158); /* The actual scroll thumb */
-  border-radius: 10px; 
+  border-radius: 10px;
   padding-right: 2px;
 }
 
@@ -156,7 +157,7 @@ header{
 }
 
 .featured-details {
-  padding-left:3vh ;
+  padding-left: 3vh;
   gap: 1vh;
   display: flex;
   flex-direction: column;
@@ -172,12 +173,11 @@ header{
   align-items: center;
   justify-content: space-between;
 }
-.featured-info-txt{
+.featured-info-txt {
   border-radius: 13px;
   color: var(--color1);
   padding: 0.3vh 1vh;
   border: solid 1px var(--color1);
-
 }
 
 /* Find Song Section */
@@ -188,7 +188,7 @@ header{
 .find-song-header {
   font-size: 1.25rem;
   font-weight: bold;
-  color:  var(--color1);
+  color: var(--color1);
   margin-bottom: 10px;
 }
 
@@ -244,7 +244,7 @@ label {
 .option-title {
   font-size: 1.1rem;
   font-weight: bold;
-  color:  var(--color2);
+  color: var(--color2);
   margin-bottom: 10px;
   padding-left: 3vh;
 }
@@ -256,10 +256,9 @@ label {
   padding-left: 3vh;
 }
 
-
 .option-button {
   padding: 8px;
-  border: 1px solid  var(--cat-btn-txt);
+  border: 1px solid var(--cat-btn-txt);
   color: var(--cat-btn-txt);
   background-color: var(--cat-btn-bg);
   margin: 3px;
@@ -270,11 +269,13 @@ label {
 }
 
 .option-button.active {
-  background-color:var(--cat-btn-a-bg) !important; /* Green background for active */
+  background-color: var(
+    --cat-btn-a-bg
+  ) !important; /* Green background for active */
   color: var(--cat-btn-a-txt) !important;
 }
 .option-button:hover {
-  background-color:var(--cat-btn-h-bg);
+  background-color: var(--cat-btn-h-bg);
   color: var(--cat-btn-h-txt);
 }
 
@@ -285,7 +286,9 @@ label {
 
 .get-button {
   padding: 5px 10px;
-  background-color:var(--color1) !important;  /* Blue background for the Get button */
+  background-color: var(
+    --color1
+  ) !important; /* Blue background for the Get button */
   color: rgb(0, 0, 0) !important;
   border: none;
   cursor: pointer;
@@ -305,15 +308,14 @@ label {
   color: #aaa;
 }
 
-
-.sec2{
+.sec2 {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
-.sec2div{
+.sec2div {
   margin-top: 5vh;
-  background: linear-gradient(to bottom,rgb(105, 105, 105),rgb(18, 18, 18)); 
+  background: linear-gradient(to bottom, rgb(105, 105, 105), rgb(18, 18, 18));
   color: aliceblue;
   border-radius: 20px;
   width: 80%;
@@ -321,7 +323,7 @@ label {
   align-items: center;
   flex-direction: column;
 }
-.sec2divnot{
+.sec2divnot {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -331,18 +333,17 @@ label {
   font-size: 1.5em;
   text-align: center;
 }
-.s2d0{
+.s2d0 {
   display: flex;
   width: 100%;
   min-height: 20vh;
   padding: 4vh;
   padding-top: 3vh;
-
 }
-.s2d0t{
+.s2d0t {
   font-size: 1.5em;
 }
-.s2d1{
+.s2d1 {
   /* background-color: antiquewhite; */
   display: flex;
   justify-content: center;
@@ -352,7 +353,7 @@ label {
   width: 40vh;
   height: 40vh;
 }
-.s2d2{
+.s2d2 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -362,15 +363,14 @@ label {
   margin-top: 3vh;
   margin-bottom: 5vh;
   border-radius: 20px;
-  background-color:var(--dynamic-color-1);
+  background-color: var(--dynamic-color-1);
   transition: all 0.5s linear;
-  
 }
-.s2d2btn{
-  height: 40px ;
+.s2d2btn {
+  height: 40px;
   width: 40px;
 }
-.s2d2btn:hover{
+.s2d2btn:hover {
   color: rgba(175, 212, 231, 0.523);
 }
 
@@ -381,7 +381,7 @@ label {
   100% {
     box-shadow: 0 0 50px 100px var(--dynamic-color);
     opacity: 10%;
-     /* added blur */
+    /* added blur */
   }
   /* 70% {
     box-shadow: 0 0 100px 200px rgba(249, 27, 79, 0.15);
@@ -391,8 +391,7 @@ label {
   } */
 }
 
-
-.playbtn{
+.playbtn {
   color: rgb(169, 169, 169);
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.14);
@@ -400,15 +399,14 @@ label {
   outline: none;
   transition: 0.3s ease;
 }
-.playbtn:hover{
+.playbtn:hover {
   scale: 1.3;
 }
 .playing-effect {
   animation: ripple 1s infinite;
 }
 
-.playicon{
+.playicon {
   height: 60px;
   width: 60px;
 }
-

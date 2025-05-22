@@ -4,6 +4,7 @@ import "./small.css";
 import axios from "axios";
 import { languagesOfState, rainyCodes } from "./data/data";
 import { GetListByKeyword } from "youtube-search-api";
+import { Headphones } from 'lucide-react';
 
 function App() {
   const [category, setCategory] = useState("");
@@ -32,6 +33,7 @@ function App() {
   var ln = useRef();
   var cl = useRef();
   var now = useRef();
+
   var [change, setChange] = useState(1);
   const [title, setTitle] = useState();
   const [videoId, setVideoId] = useState(null);
@@ -39,6 +41,7 @@ function App() {
   const ytPlayer = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [fetched, setFetched] = useState(false);
+
   var songlist = useRef();
   var ind = useRef(1);
   var [ops, setOps] = useState("Featured");
@@ -47,6 +50,7 @@ function App() {
   var [location, setLocation] = useState(false);
   var [showCustomGet, setShowCustomGet] = useState(true);
   var [showPlayFea, setShowPlayFea] = useState(false);
+
   const colors = ["lightgray", "#d3d3d3", "#6a8acd", "#e07b7b", "lightgreen"];
   const colors1 = [
     "rgba(0, 0, 0, 0.08)",
@@ -102,6 +106,7 @@ function App() {
       return () => clearInterval(interval);
     }
   }, [isPlaying]);
+
 
   useEffect(() => {
     document.documentElement.style.setProperty(
@@ -398,11 +403,7 @@ function App() {
     <>
       <header>
         <div className="h1">
-          <img
-            className="hicon"
-            src="https://deepaknetwork.github.io/herethis/icon.png"
-            alt="HereThis Logo"
-          />
+        <Headphones style={{ stroke: '#1db954' }} />
           <span className="htext">HereThis</span>
         </div>
         <div className="slogan">
@@ -629,9 +630,9 @@ function App() {
       </div>
 
       <div className="footer">
-        <span>
+        {/* <span>
           A product by <a href="https://mrdeepak.tech/">Deepak</a>
-        </span>
+        </span> */}
       </div>
     </>
   );
